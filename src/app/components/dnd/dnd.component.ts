@@ -1,16 +1,17 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { UploadService } from './upload.service';
 
+/** Note: requires the [a] attribute to be passed */
 @Component({
   selector: 'app-dnd',
   templateUrl: './dnd.component.html',
-  styleUrls: ['./dnd.component.scss']
+  styleUrls: ['./dnd.component.scss'],
 })
 export class DndComponent implements OnInit {
 
   @Input() nameFile: string = "imagen";
   @Input() uri: string = "imagen";
-  @Input() tipeAccept: string = "image/*";
+  @Input() tipeAccept!: string;
   @Output() fileDropped: EventEmitter<string> = new EventEmitter<string>();
 
   isUpload = false;
@@ -24,6 +25,9 @@ export class DndComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    if(this.tipeAccept == null){
+      throw new Error("Field [tipeAccept] must be provided in dnd component");
+    }
   }
 
   onFileDropped(event: any) {
