@@ -10,7 +10,7 @@ export class DndComponent implements OnInit {
 
   @Input() nameFile: string = "imagen";
   @Input() uri: string = "imagen";
-  @Input() tipeAccept: string = "*";
+  @Input() tipeAccept: string = "image/*";
   @Output() fileDropped: EventEmitter<string> = new EventEmitter<string>();
 
   isUpload = false;
@@ -27,6 +27,14 @@ export class DndComponent implements OnInit {
   }
 
   onFileDropped(event: any) {
+    const type: string = event[0].type;
+    //? This validation occurs only when the file is droppped
+    //! This function doesnt work when the user select the file manually with the button
+    //? Images has the type image/*
+    if(!type.includes("image")){
+      console.error("Only images can be uploaded");
+      return;
+    }
     this.uploadFile(event[0]);
   }
 
