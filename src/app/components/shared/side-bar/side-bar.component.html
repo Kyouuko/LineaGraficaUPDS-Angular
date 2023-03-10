@@ -19,12 +19,23 @@
                 Contact
             </a>
         </li>
-        <li routerLinkActive="active" *ngFor="let menu of menus">
+
+        <!--? Old menu config -->
+        <!-- <li routerLinkActive="active" *ngFor="let menu of menus">
             <a href="#" [routerLink]="menu.ubicacion" class="text-overflow">
                 <i class="fa-regular {{menu.icono}}"></i>
                 {{menu.titulo}}
             </a>
+        </li> -->
+
+        <!--? Generating dynamic menu -->
+        <li *ngFor="let item of menus">
+            <a href="#" [routerLink]="item.routerLink">
+                <i [class]="item.icon"></i>
+                {{item.title}}
+            </a>
         </li>
+
     </ul>
 
     <section class="section-botton text-center">
